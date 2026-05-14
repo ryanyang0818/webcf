@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日語文法學習</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- 頂部工具列 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">🈶 日語文法分析</div>
+      <div class="topbar-controls">
+        <label class="speed-label">
+          語速
+          <span id="speedDisplay">1.0x</span>
+        </label>
+        <input id="speedSlider" type="range" min="0.5" max="2" step="0.1" value="1.0" />
+        <div class="apikey-wrap">
+          <input id="apiKeyInput" type="password" placeholder="Anthropic API Key" autocomplete="off" />
+          <button id="apiKeySave">儲存</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 輸入區 -->
+    <section class="input-section card">
+      <label class="section-title" for="userInput">輸入日語句子或中文描述</label>
+      <textarea id="userInput" rows="3" placeholder="例：私は毎朝コーヒーを飲んでから、会社に行きます。&#10;或中文：表示做完一件事之後再做另一件事的文法"></textarea>
+      <button id="analyzeBtn" class="btn-primary">分析文法</button>
+    </section>
+
+    <!-- 載入中 -->
+    <div id="loadingArea" class="loading hidden">
+      <div class="spinner"></div>
+      <span>正在分析文法…</span>
+    </div>
+
+    <!-- 錯誤訊息 -->
+    <div id="errorArea" class="error-msg hidden"></div>
+
+    <!-- 結果區（預設隱藏） -->
+    <div id="resultArea" class="hidden">
+
+      <!-- 文法說明 -->
+      <section class="card grammar-info">
+        <div class="grammar-pattern" id="grammarPattern"></div>
+        <div class="grammar-explanation" id="grammarExplanation"></div>
+      </section>
+
+      <!-- 文法樹狀圖 -->
+      <section class="card diagram-section">
+        <div class="section-title">文法結構圖</div>
+        <div id="diagramContainer">
+          <svg id="grammarTree"></svg>
+        </div>
+      </section>
+
+      <!-- 例句學習區塊 -->
+      <section class="card example-section">
+        <div class="section-title">
+          例句學習
+          <span class="example-counter" id="exampleCounter"></span>
+        </div>
+
+        <div class="example-japanese" id="exampleJapanese"></div>
+        <div class="example-chinese" id="exampleChinese"></div>
+
+        <div class="example-actions">
+          <button id="speakBtn" class="btn-speak">🔊 發音</button>
+          <button id="nextBtn" class="btn-secondary">下一則例句 →</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="scripts/tts.js"></script>
+  <script src="scripts/diagram.js"></script>
+  <script src="scripts/api.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
